@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="Home"
-        android:id="@+id/menu_Home"></item>
-
-    <item android:title="Setting"
-        android:id="@+id/menu_Setting"></item>
+    <item android:id="@+id/action_new"
+        android:title="new Reminder"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_exit"
+        android:title="exit"
+        android:orderInCategory="200"
+        app:showAsAction="never" />
 
 </menu>
