@@ -9,5 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
+        <view
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            class="android.view.View"
+            android:id="@+id/row_tab" />
     </LinearLayout>
 </LinearLayout>
