@@ -1,6 +1,11 @@
 package com.apress.gerber.reminders;
 
+        import android.app.Dialog;
         import android.database.Cursor;
+        import android.support.annotation.NonNull;
+        import android.support.annotation.Nullable;
+        import android.support.v4.app.TaskStackBuilder;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
@@ -18,6 +23,11 @@ public class RemindersActivity extends AppCompatActivity {
     private ListView mListView;
     private RemindersDbAdapter mDbAdapter;
     private RemindersSimpleCursorAdapter mCursorAdapter;
+
+    @Override
+    public void onCreateSupportNavigateUpTaskStack(@NonNull TaskStackBuilder builder) {
+        super.onCreateSupportNavigateUpTaskStack(builder);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +76,38 @@ public class RemindersActivity extends AppCompatActivity {
         //when we click an individual item in the listview
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(RemindersActivity.this, "clicked " + position,
-                        Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, final int masterListPosition, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RemindersActivity.this);
+                ListView modeListView = new ListView(RemindersActivity.this);
+                String[] modes = new String[] { "Edit Reminder", "Delete Reminder" };
+                ArrayAdapter<String> modeAdapter = new ArrayAdapter<>(RemindersActivity.this,
+                        android.R.layout.simple_list_item_1, android.R.id.text1, modes);
+                modeListView.setAdapter(modeAdapter);
+                builder.setView(modeListView);
+                final Dialog dialog = builder.create();
+                dialog.show();
+                modeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //edit reminder
+                        if (position == 0) {
+                            Toast.makeText(RemindersActivity.this, "edit "
+                                    + masterListPosition, Toast.LENGTH_SHORT).show();
+                        //delete reminder
+                        } else {
+                            Toast.makeText(RemindersActivity.this, "delete "
+                                    + masterListPosition, Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+                });
             }
         });
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
     }
 
     private void insertSomeReminders() {
