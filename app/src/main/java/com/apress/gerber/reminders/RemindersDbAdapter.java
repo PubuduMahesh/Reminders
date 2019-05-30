@@ -108,7 +108,7 @@ public class RemindersDbAdapter {
         }
 
         @Override
-        public void onCreate(SQLiteDatabase db) {
+        public void onCreate(SQLiteDatabase db) {//this method may be called automatically by the runtime
             Log.w(TAG, DATABASE_CREATE);
             db.execSQL(DATABASE_CREATE);
         }
