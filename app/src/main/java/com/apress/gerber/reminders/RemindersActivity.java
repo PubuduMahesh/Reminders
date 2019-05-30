@@ -7,11 +7,8 @@ package com.apress.gerber.reminders;
         import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
         import android.widget.ListView;
-        import android.widget.Toast;
 
 public class RemindersActivity extends AppCompatActivity {
 
@@ -62,16 +59,6 @@ public class RemindersActivity extends AppCompatActivity {
             //Add some data
             insertSomeReminders();
         }
-
-        //when we click an individual item in the listview
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(RemindersActivity.this, "clicked " + position,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void insertSomeReminders() {
