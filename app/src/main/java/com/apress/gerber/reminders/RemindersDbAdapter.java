@@ -37,8 +37,8 @@ public class RemindersDbAdapter {
     }
     //open
     public void open() throws SQLException {
-            mDbHelper = new DatabaseHelper(mCtx);
-            mDb = mDbHelper.getWritableDatabase();
+        mDbHelper = new DatabaseHelper(mCtx);
+        mDb = mDbHelper.getWritableDatabase();
     }
     //close
     public void close() {
@@ -105,10 +105,6 @@ public class RemindersDbAdapter {
     private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-            super(context, name, factory, version);
         }
 
         @Override

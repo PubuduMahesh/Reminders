@@ -12,7 +12,7 @@
         android:id="@+id/reminders_list_view"
         android:layout_width="match_parent"
         android:layout_height="495dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:listitem="@layout/reminders_row" />
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:listitem="@layout/reminders_row"/>
 </android.support.constraint.ConstraintLayout>
