@@ -1,14 +1,19 @@
 package com.apress.gerber.reminders;
 
+        import android.app.Dialog;
         import android.database.Cursor;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
         import android.widget.ListView;
+        import android.widget.Toast;
 
 public class RemindersActivity extends AppCompatActivity {
 
@@ -58,6 +63,42 @@ public class RemindersActivity extends AppCompatActivity {
                 0);
 
         mListView.setAdapter(mCursorAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int masterListPosition, long id) {
+
+                //creating dialog box when touch a item on the Reminder list.
+                AlertDialog.Builder builder = new AlertDialog.Builder(RemindersActivity.this);
+                ListView modeListView = new ListView(RemindersActivity.this);
+                String[] modes = new String[]{"Edit Reminder","Delete Reminder"};
+                ArrayAdapter<String> modeAdapter = new ArrayAdapter<>(RemindersActivity.this,
+                        android.R.layout.simple_list_item_1, android.R.id.text1, modes);
+                modeListView.setAdapter(modeAdapter);
+                builder.setView(modeListView);
+                final Dialog dialog = builder.create();
+                dialog.show();
+
+                //set action listener when selecting a list item of popped up dialog box.
+                modeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        //to edit reminder.
+                        if(position == 0)
+                        {
+                            Toast.makeText(RemindersActivity.this, "edit "
+                                    + masterListPosition, Toast.LENGTH_SHORT).show();
+                        }
+                        //to delete a reminder.
+                        else
+                        {
+                            mDbAdapter.deleteReminderById((int) masterListPosition);
+                        }
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     private void insertSomeReminders() {
